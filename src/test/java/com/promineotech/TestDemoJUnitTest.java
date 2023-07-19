@@ -12,13 +12,15 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class TestDemoJUnitTest {
 	private TestDemo testDemo;
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		
 		testDemo = new TestDemo();
 	}
 
-	@Test
+	@ParameterizedTest
+	@MethodSource("TestDemoJUnitTest#argumentsForAddPositive")
 	void assertThatTwoPositiveNumbersAreAddedCorrectly(int a, int b, int expected, boolean expectException)
 	{
 		if(!expectException) {
@@ -29,7 +31,7 @@ class TestDemoJUnitTest {
 			}	
 	}
 	
-	static Stream<Arguments> argumentsForAddPositive() {
+	public static Stream<Arguments> argumentsForAddPositive() {
         return Stream.of(
                 Arguments.arguments(2, 4, 6, false),
                 Arguments.arguments(0, 4, 4, true),
